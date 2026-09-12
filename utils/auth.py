@@ -19,3 +19,10 @@ def login_user(phone_number: str, users_file: str = "data/users.json") -> dict:
                     return CURRENT_USER
     except (json.JSONDecodeError, IOError):
         return None
+
+    return None
+
+def logout_user():
+    """Clear current active session."""
+    global CURRENT_USER
+    CURRENT_USER = None
