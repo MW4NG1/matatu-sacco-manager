@@ -26,3 +26,7 @@ def logout_user():
     """Clear current active session."""
     global CURRENT_USER
     CURRENT_USER = None
+
+def get_current_user() -> dict:
+    """Retrieve active user session."""
+    return CURRENT_USER
