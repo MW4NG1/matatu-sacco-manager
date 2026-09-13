@@ -14,6 +14,11 @@ def test_route_creation_and_to_dict():
     assert data["route_id"] == "R1"
     assert data["fare"] == 100.0
 
+def test_route_update_fare():
+    route = Route("R2", "CBD", "Kasani", 80)
+    route.update_fare(120)
+    assert route.fare == 120.0
+
     
     
     
