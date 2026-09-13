@@ -9,5 +9,11 @@ def test_route_creation_and_to_dict():
     assert route.source == "CBD"
     assert route.destination == "Westlands"
     assert route.fare == 100.0
+
+    data = route.to_dict()
+    assert data["route_id"] == "R1"
+    assert data["fare"] == 100.0
+
+    
     
     
