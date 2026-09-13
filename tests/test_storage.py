@@ -16,3 +16,9 @@ def test_save_and_load_json(tmp_path):
 
     loaded_data = load_json(str(test_file))
     assert loaded_data == sample_data
+
+def test_load_nonexistent_file(tmp_path):
+    non_existent_file = tmp_path / "does_not_exist.json"
+    data = load_json(str(non_existent_file))
+
+    assert data == [] or data == {}
