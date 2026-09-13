@@ -12,3 +12,5 @@ class Admin(User):
 
     def __str__(self) -> str:
         return f"Admin({self.name}, Permissions: {len(self.permissions)})"
+
+    
