@@ -15,7 +15,7 @@ def display_header():
     console.clear()
     console.print(
         Panel.fit(
-            "[bold green]🚌 MATATU SACCO MANAGEMENT SYSTEM[/bold green]\n"
+            "[bold green] MATATU SACCO MANAGEMENT SYSTEM[/bold green]\n"
             "[dim]Streamlining Transport & Route Operations[/dim]",
             border_style="green"
         )
