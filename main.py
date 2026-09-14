@@ -105,5 +105,5 @@ def main():
             console.print("[bold green]Thank you for using Matatu SACCO Manager![/bold green]")
             sys.exit(0)
 
-if __name__ == "__main___":
+if __name__ == "__main__":
     main()
