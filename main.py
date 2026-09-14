@@ -1,3 +1,4 @@
+from utils.ui import display_welcome_banner
 import sys
 from rich.console import Console
 from rich.panel import Panel
@@ -13,15 +14,11 @@ console = Console()
 
 def display_header():
     console.clear()
-    console.print(
-        Panel.fit(
-            "[bold green] MATATU SACCO MANAGEMENT SYSTEM[/bold green]\n"
-            "[dim]Streamlining Transport & Route Operations[/dim]",
-            border_style="green"
-        )
-    )
-    def view_routes():
-     display_header()
+    # Call your imported welcome banner here inside display_header so it shows up on every screen refresh
+    display_welcome_banner()
+
+def view_routes():
+    display_header()
     routes = load_json("data/routes.json")
     
     table = Table(title="Available SACCO Routes", header_style="bold magenta")
@@ -48,17 +45,18 @@ def add_route():
     source = Prompt.ask("Enter Departure Point")
     destination = Prompt.ask("Enter Destination")
     fare = Prompt.ask("Enter Fare Amount (KES)")
-if not (is_non_empty(route_id) and is_non_empty(source) and     is_non_empty(destination)):
+    
+    if not (is_non_empty(route_id) and is_non_empty(source) and is_non_empty(destination)):
         console.print("[bold red]Error: All fields are required![/bold red]")
-elif not is_positive_number(fare):
+    elif not is_positive_number(fare):
         console.print("[bold red]Error: Fare must be a positive number![/bold red]")
-else:
+    else:
         routes = load_json("data/routes.json")
         routes.append({"route_id": route_id, "source": source, "destination": destination, "fare": float(fare)})
         save_json("data/routes.json", routes)
         console.print("[bold green]✓ Route added successfully![/bold green]")
         
-        Prompt.ask("\nPress [bold]Enter[/bold] to continue")
+    Prompt.ask("\nPress [bold]Enter[/bold] to continue")
 
 def login_flow():
     display_header()
@@ -73,7 +71,7 @@ def login_flow():
             console.print(f"[bold green]Welcome back, {user['name']}![/bold green]")
         else:
             console.print("[bold red]User not found in system database.[/bold red]")
-            Prompt.ask("\nPress [bold]Enter[/bold] to continue")
+    Prompt.ask("\nPress [bold]Enter[/bold] to continue")
 
 def main():
     while True:
@@ -107,5 +105,5 @@ def main():
             console.print("[bold green]Thank you for using Matatu SACCO Manager![/bold green]")
             sys.exit(0)
 
-if _name_ == "_main_":
+if __name__ == "__main___":
     main()
