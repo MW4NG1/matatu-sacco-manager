@@ -1,1 +1,8 @@
-[]
+[
+    {
+        "route_id": "R01",
+        "source": "CBD",
+        "destination": "Kayole",
+        "fare": 150.0
+    }
+]
