@@ -5,7 +5,6 @@ import os
 CURRENT_USER = None
 
 def login_user(phone_number: str, users_file: str = "data/users.json") -> dict:
-    """Authenticate a user by phone number and set active session."""
     global CURRENT_USER
     if not os.path.exists(users_file):
         return None
@@ -23,10 +22,8 @@ def login_user(phone_number: str, users_file: str = "data/users.json") -> dict:
     return None
 
 def logout_user():
-    """Clear current active session."""
     global CURRENT_USER
     CURRENT_USER = None
 
 def get_current_user() -> dict:
-    """Retrieve active user session."""
     return CURRENT_USER
