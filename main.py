@@ -73,3 +73,39 @@ def login_flow():
             console.print(f"[bold green]Welcome back, {user['name']}![/bold green]")
         else:
             console.print("[bold red]User not found in system database.[/bold red]")
+            Prompt.ask("\nPress [bold]Enter[/bold] to continue")
+
+def main():
+    while True:
+        display_header()
+        current_user = get_current_user()
+        
+        if current_user:
+            console.print(f"Logged in as: [bold cyan]{current_user['name']}[/bold cyan] ([yellow]{current_user['role']}[/yellow])\n")
+        else:
+            console.print("[dim]Status: Guest User[/dim]\n")
+
+        console.print("1. View SACCO Routes")
+        console.print("2. Login")
+        console.print("3. Add New Route (Admin Only)")
+        console.print("4. Logout")
+        console.print("5. Exit")
+        
+        choice = Prompt.ask("\nSelect an option", choices=["1", "2", "3", "4", "5"])
+
+        if choice == "1":
+            view_routes()
+        elif choice == "2":
+            login_flow()
+        elif choice == "3":
+            add_route()
+        elif choice == "4":
+            logout_user()
+            console.print("[yellow]Logged out successfully.[/yellow]")
+            Prompt.ask("\nPress [bold]Enter[/bold] to continue")
+        elif choice == "5":
+            console.print("[bold green]Thank you for using Matatu SACCO Manager![/bold green]")
+            sys.exit(0)
+
+if _name_ == "_main_":
+    main()
