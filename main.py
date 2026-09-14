@@ -48,3 +48,28 @@ def add_route():
     source = Prompt.ask("Enter Departure Point")
     destination = Prompt.ask("Enter Destination")
     fare = Prompt.ask("Enter Fare Amount (KES)")
+if not (is_non_empty(route_id) and is_non_empty(source) and     is_non_empty(destination)):
+        console.print("[bold red]Error: All fields are required![/bold red]")
+elif not is_positive_number(fare):
+        console.print("[bold red]Error: Fare must be a positive number![/bold red]")
+else:
+        routes = load_json("data/routes.json")
+        routes.append({"route_id": route_id, "source": source, "destination": destination, "fare": float(fare)})
+        save_json("data/routes.json", routes)
+        console.print("[bold green]✓ Route added successfully![/bold green]")
+        
+        Prompt.ask("\nPress [bold]Enter[/bold] to continue")
+
+def login_flow():
+    display_header()
+    console.print("[bold cyan]System Login[/bold cyan]\n")
+    phone = Prompt.ask("Enter registered Phone Number")
+    
+    if not is_valid_phone(phone):
+        console.print("[bold red]Invalid phone format! Use 07XXXXXXXX or +2547XXXXXXXX[/bold red]")
+    else:
+        user = login_user(phone)
+        if user:
+            console.print(f"[bold green]Welcome back, {user['name']}![/bold green]")
+        else:
+            console.print("[bold red]User not found in system database.[/bold red]")
