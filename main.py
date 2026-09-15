@@ -56,6 +56,7 @@ def add_route():
         console.print("[bold green] Route added successfully![/bold green]")
         
     Prompt.ask("\nPress [bold]Enter[/bold] to continue")
+    
 
 @require_admin
 def add_matatu():
@@ -81,6 +82,21 @@ def add_matatu():
         console.print("[bold green]✓ Matatu registered successfully![/bold green]")
         
     Prompt.ask("\nPress [bold]Enter[/bold] to continue")
+from utils.auth import register_user
+from utils.decorators import require_admin
+
+@require_admin
+def handle_register_user():
+    print("\n--- Register New User ---")
+    name = input("Enter full name: ").strip()
+    phone = input("Enter phone number (e.g., 0712345678): ").strip()
+    password = input("Enter initial password: ").strip()
+    role = input("Enter role ('admin' or 'operator'): ").strip().lower()
+    
+    if role not in ["admin", "operator"]:
+        role = "operator"  # Default fallback
+        
+    register_user(phone, name, password, role)
 
 @require_admin
 def add_matatu():

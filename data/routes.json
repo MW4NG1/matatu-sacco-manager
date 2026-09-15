@@ -4,5 +4,23 @@
         "source": "CBD",
         "destination": "Kayole",
         "fare": 150.0
+    },
+    {
+        "route_id": "juja",
+        "source": "town",
+        "destination": "juja",
+        "fare": 100.0
+    },
+    {
+        "route_id": "mombasa",
+        "source": "CBD town",
+        "destination": "Mombasa",
+        "fare": 1200.0
+    },
+    {
+        "route_id": "Nakuru",
+        "source": "town",
+        "destination": "Nakuru",
+        "fare": 600.0
     }
 ]

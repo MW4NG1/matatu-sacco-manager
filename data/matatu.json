@@ -3,5 +3,10 @@
         "plate_number": "KBC 123A",
         "route_id": "R01",
         "capacity": 24
+    },
+    {
+        "plate_number": "KDA 234D",
+        "route_id": "MOMBASA",
+        "capacity": 14
     }
 ]
