@@ -1,7 +1,8 @@
 [
   {
-    "phone_number": "0712345678",
     "name": "Admin User",
-    "role": "admin"
+    "phone": "0712345678",
+    "role": "admin",
+    "password_hash": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9"
   }
 ]
