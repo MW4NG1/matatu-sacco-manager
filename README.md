@@ -61,7 +61,6 @@ The main entities are:
 - User
 - Admin
 - Vehicle
-- FleetManager
 - AuthManager
   The two main data entities are User and Vehicle.
 
