@@ -53,7 +53,7 @@ def add_route():
         routes = load_json("data/routes.json")
         routes.append({"route_id": route_id, "source": source, "destination": destination, "fare": float(fare)})
         save_json("data/routes.json", routes)
-        console.print("[bold green]✓ Route added successfully![/bold green]")
+        console.print("[bold green] Route added successfully![/bold green]")
         
     Prompt.ask("\nPress [bold]Enter[/bold] to continue")
 
@@ -79,6 +79,31 @@ def add_matatu():
         })
         save_json("data/matatu.json", matatus)
         console.print("[bold green]✓ Matatu registered successfully![/bold green]")
+        
+    Prompt.ask("\nPress [bold]Enter[/bold] to continue")
+
+@require_admin
+def add_matatu():
+    display_header()
+    console.print("[bold yellow]Register New Matatu[/bold yellow]\n")
+    
+    plate_number = Prompt.ask("Enter License Plate (e.g., KBC 123A)")
+    route_id = Prompt.ask("Enter Assigned Route ID (e.g., R01)")
+    capacity = Prompt.ask("Enter Vehicle Capacity")
+    
+    if not (is_non_empty(plate_number) and is_non_empty(route_id)):
+        console.print("[bold red]Error: All fields are required![/bold red]")
+    elif not is_positive_number(capacity):
+        console.print("[bold red]Error: Capacity must be a positive number![/bold red]")
+    else:
+        matatus = load_json("data/matatu.json")
+        matatus.append({
+            "plate_number": plate_number, 
+            "route_id": route_id, 
+            "capacity": int(capacity)
+        })
+        save_json("data/matatu.json", matatus)
+        console.print("[bold green] Matatu registered successfully![/bold green]")
         
     Prompt.ask("\nPress [bold]Enter[/bold] to continue")
 
