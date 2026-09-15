@@ -157,6 +157,12 @@ Replace JSON files with PostgreSQL or SQLite database.
 Add a web or graphical interface.
 These improvements are not required for the current project. The current version is deliberately small so that the main Python and OOP concepts remain easy to understand.
 
+## 📋 Project Management & Tracking
+
+We track our project development, sprint milestones, user stories, and task assignments using Trello. You can view our live project board and progress tracking here:
+
+[Trello Board Link - Matatu SACCO Manager](https://trello.com/b/NouIoJb6/matatu-sacco-project)
+
 ## Final Summary
 
 The Matatu Sacco Manager demonstrates how a relatively small Python project can combine several important programming ideas.
