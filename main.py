@@ -63,17 +63,22 @@ else:
 def login_flow():
     display_header()
     console.print("[bold cyan]System Login[/bold cyan]\n")
+    
     phone = Prompt.ask("Enter registered Phone Number")
+    password = Prompt.ask("Enter Password", password=True)  
     
     if not is_valid_phone(phone):
         console.print("[bold red]Invalid phone format! Use 07XXXXXXXX or +2547XXXXXXXX[/bold red]")
     else:
-        user = login_user(phone)
+        
+        user = login_user(phone, password)
         if user:
             console.print(f"[bold green]Welcome back, {user['name']}![/bold green]")
         else:
-            console.print("[bold red]User not found in system database.[/bold red]")
-            Prompt.ask("\nPress [bold]Enter[/bold] to continue")
+            console.print("[bold red]Invalid phone number or password.[/bold red]")
+            
+    Prompt.ask("\nPress [bold]Enter[/bold] to continue")
+   
 
 def main():
     while True:
