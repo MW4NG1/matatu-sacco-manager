@@ -94,7 +94,7 @@ def handle_register_user():
     role = input("Enter role ('admin' or 'operator'): ").strip().lower()
     
     if role not in ["admin", "operator"]:
-        role = "operator"  # Default fallback
+        role = "operator" 
         
     register_user(phone, name, password, role)
 
