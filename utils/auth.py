@@ -1,32 +1,29 @@
-import json
-import os
+import hashlib
+from utils.storage import load_json
 
-# Simulated session state
-CURRENT_USER = None
+# Keep track of the currently logged-in user session globally
+_current_user = None
 
-def login_user(phone_number: str, users_file: str = "data/users.json") -> dict:
-    """Authenticate a user by phone number and set active session."""
-    global CURRENT_USER
-    if not os.path.exists(users_file):
-        return None
+def hash_password(password):
+    return hashlib.sha256(password.encode()).hexdigest()
 
-    try:
-        with open(users_file, "r") as file:
-            users = json.load(file)
-            for user in users:
-                if user.get("phone_number") == phone_number:
-                    CURRENT_USER = user
-                    return CURRENT_USER
-    except (json.JSONDecodeError, IOError):
-        return None
-
+def login_user(phone, password):
+    global _current_user
+    users = load_json("data/users.json")
+    
+    input_hash = hash_password(password)
+    
+    for user in users:
+        if user.get("phone") == phone and user.get("password_hash") == input_hash:
+            _current_user = user
+            return user
+            
     return None
 
 def logout_user():
-    """Clear current active session."""
-    global CURRENT_USER
-    CURRENT_USER = None
+    global _current_user
+    _current_user = None
 
-def get_current_user() -> dict:
-    """Retrieve active user session."""
-    return CURRENT_USER
+def get_current_user():
+    global _current_user
+    return _current_user

@@ -4,6 +4,7 @@ from rich.panel import Panel
 from rich.table import Table
 from rich.prompt import Prompt
 
+from utils.ui import display_welcome_banner
 from utils.storage import load_json, save_json
 from utils.validators import is_non_empty, is_valid_phone, is_positive_number
 from utils.auth import login_user, logout_user, get_current_user
@@ -13,15 +14,10 @@ console = Console()
 
 def display_header():
     console.clear()
-    console.print(
-        Panel.fit(
-            "[bold green] MATATU SACCO MANAGEMENT SYSTEM[/bold green]\n"
-            "[dim]Streamlining Transport & Route Operations[/dim]",
-            border_style="green"
-        )
-    )
-    def view_routes():
-     display_header()
+    display_welcome_banner()
+
+def view_routes():
+    display_header()
     routes = load_json("data/routes.json")
     
     table = Table(title="Available SACCO Routes", header_style="bold magenta")
@@ -48,17 +44,43 @@ def add_route():
     source = Prompt.ask("Enter Departure Point")
     destination = Prompt.ask("Enter Destination")
     fare = Prompt.ask("Enter Fare Amount (KES)")
-if not (is_non_empty(route_id) and is_non_empty(source) and     is_non_empty(destination)):
+    
+    if not (is_non_empty(route_id) and is_non_empty(source) and is_non_empty(destination)):
         console.print("[bold red]Error: All fields are required![/bold red]")
-elif not is_positive_number(fare):
+    elif not is_positive_number(fare):
         console.print("[bold red]Error: Fare must be a positive number![/bold red]")
-else:
+    else:
         routes = load_json("data/routes.json")
         routes.append({"route_id": route_id, "source": source, "destination": destination, "fare": float(fare)})
         save_json("data/routes.json", routes)
         console.print("[bold green]✓ Route added successfully![/bold green]")
         
-        Prompt.ask("\nPress [bold]Enter[/bold] to continue")
+    Prompt.ask("\nPress [bold]Enter[/bold] to continue")
+
+@require_admin
+def add_matatu():
+    display_header()
+    console.print("[bold yellow]Register New Matatu[/bold yellow]\n")
+    
+    plate_number = Prompt.ask("Enter License Plate (e.g., KBC 123A)")
+    route_id = Prompt.ask("Enter Assigned Route ID (e.g., R01)")
+    capacity = Prompt.ask("Enter Vehicle Capacity")
+    
+    if not (is_non_empty(plate_number) and is_non_empty(route_id)):
+        console.print("[bold red]Error: All fields are required![/bold red]")
+    elif not is_positive_number(capacity):
+        console.print("[bold red]Error: Capacity must be a positive number![/bold red]")
+    else:
+        matatus = load_json("data/matatu.json")
+        matatus.append({
+            "plate_number": plate_number, 
+            "route_id": route_id, 
+            "capacity": int(capacity)
+        })
+        save_json("data/matatu.json", matatus)
+        console.print("[bold green]✓ Matatu registered successfully![/bold green]")
+        
+    Prompt.ask("\nPress [bold]Enter[/bold] to continue")
 
 def login_flow():
     display_header()
@@ -93,10 +115,11 @@ def main():
         console.print("1. View SACCO Routes")
         console.print("2. Login")
         console.print("3. Add New Route (Admin Only)")
-        console.print("4. Logout")
-        console.print("5. Exit")
+        console.print("4. Add New Matatu (Admin Only)")
+        console.print("5. Logout")
+        console.print("6. Exit")
         
-        choice = Prompt.ask("\nSelect an option", choices=["1", "2", "3", "4", "5"])
+        choice = Prompt.ask("\nSelect an option", choices=["1", "2", "3", "4", "5", "6"])
 
         if choice == "1":
             view_routes()
@@ -105,12 +128,14 @@ def main():
         elif choice == "3":
             add_route()
         elif choice == "4":
+            add_matatu()
+        elif choice == "5":
             logout_user()
             console.print("[yellow]Logged out successfully.[/yellow]")
             Prompt.ask("\nPress [bold]Enter[/bold] to continue")
-        elif choice == "5":
+        elif choice == "6":
             console.print("[bold green]Thank you for using Matatu SACCO Manager![/bold green]")
             sys.exit(0)
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     main()

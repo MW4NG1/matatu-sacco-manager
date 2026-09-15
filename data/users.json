@@ -1,1 +1,7 @@
-[]
+[
+  {
+    "phone_number": "0712345678",
+    "name": "Admin User",
+    "role": "admin"
+  }
+]
