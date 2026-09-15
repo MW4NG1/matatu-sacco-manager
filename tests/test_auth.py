@@ -7,8 +7,6 @@ def test_login_and_current_user():
     logout_user()
     assert get_current_user() is None
     
-    user = login_user("0712345678")
-    if user:
-        assert get_current_user() == user
-    logout_user()
-    assert get_current_user() is None
+    user = login_user("0712345678", "admin123")
+    assert user is not None
+    assert get_current_user() == user
